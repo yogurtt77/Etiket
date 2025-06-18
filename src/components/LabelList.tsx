@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useAppSelector } from "@/hooks/redux";
-import { COLORS, SPACING, BREAKPOINTS } from "@/shared/constants/theme";
+import { COLORS, SPACING } from "@/shared/constants/theme";
 import { APP_CONFIG } from "@/shared/constants/app";
 import LabelItem from "./LabelItem";
-import { Label } from "@/types/label";
+import type { Label } from "@/types/label";
 
 const ListContainer = styled.div`
   background: ${COLORS.gradients.card};
@@ -115,7 +115,7 @@ const LabelList: React.FC = () => {
   const { labels } = useAppSelector((state) => state.labels);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredLabels = labels.filter((label) =>
+  const filteredLabels = labels.filter((label: Label) =>
     label.text.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -144,7 +144,7 @@ const LabelList: React.FC = () => {
 
   const getUniqueColors = () => {
     const colors = new Set();
-    labels.forEach((label) => {
+    labels.forEach((label: Label) => {
       colors.add(label.textColor);
       colors.add(label.backgroundColor);
     });
@@ -191,7 +191,7 @@ const LabelList: React.FC = () => {
             : APP_CONFIG.MESSAGES.NO_SEARCH_RESULTS}
         </EmptyState>
       ) : (
-        filteredLabels.map((label) => (
+        filteredLabels.map((label: Label) => (
           <LabelItem key={label.id} label={label} />
         ))
       )}
